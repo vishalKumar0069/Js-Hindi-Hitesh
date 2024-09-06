@@ -1,16 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+
+<head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-`  </head>
-  <body style="background-color: #212121">
+    <title>Document</title>
+</head>
+
+<body style="background-color: #212121">
     <!-- 0 UNSENT Client has been created. open() not called yet. 1 OPENED open() has
     been called. 2 HEADERS_RECEIVED send() has been called, and headers and
     status are available. 3 LOADING Downloading; responseText holds partial
     data. 4 DONE The operation is complete. -->
-  </body>
-  <script>
+</body>
+<script>
     // Create a new Button element
     const newDiv = document.createElement("div");
     newDiv.className = "info";
@@ -22,9 +25,9 @@
 
     // Create a new Button element
     const newButton = document.createElement("button");
+    newButton.id = 'myButton'
     newButton.textContent = "For Info:";
 
-    newButton.id = 'myButton'
 
 
     newDiv.appendChild(lineBreak);
@@ -33,35 +36,57 @@
     document.body.appendChild(newDiv);
 
 
-    
 
 
-    
-    
-    
+
+
+
+
     const requestUrl = "https://api.github.com/users/hiteshchoudhary";
     const xhr = new XMLHttpRequest();
     xhr.open("GET", requestUrl);
     xhr.onreadystatechange = function () {
-      console.log(xhr.readyState);
-      if (xhr.readyState === 4) {
-        
-        const data = JSON.parse(this.responseText);
-        console.log(data)
-        console.log(typeof data)
-        const followersDelails = (data.followers)
-        console.log(followersDelails)    
-        // const avatar = (data.avatar_url)
-        // console.log(avatar)    
+        console.log(xhr.readyState);
+        if (xhr.readyState === 4) {
+            const data = JSON.parse(this.responseText);
+            console.log(data)
+            console.log(typeof data)
 
-    
-        // Add a Click event listener to the button
-        // newButton.addEventListener('click', followersDelails)
-    
-      }
+            // const followersDelails = (data.followers)
+            // console.log(followersDelails)
+
+            // const avatar = (data.avatar_url)
+            // console.log(avatar)
+
+
+            // Add a Click event listener to the button
+            newButton.addEventListener('click', function () {
+                // check if the info if alredy displayed, to avoid duplicates
+                if (!document.getElementById('avatarImage')) {
+                    // Create an image element
+                    const img = document.createElement('img')
+                    img.src = data.avatar_url;
+                    img.alt = 'Avatar';
+                    img.id = 'avatarImage'; // Set an ID to avoid duplicates
+                    img.style.width = '100px'; //Optional: Set the width of image
+                    console.log(`${img}`)
+                    newDiv.appendChild(img);
+
+                    // create a paragraph to display the followers
+                    const followersText = document.createElement('p')
+                    followersText.id = 'followersCount' // Set an ID to avoid duplicates
+                    followersText.textContent = `Followers: ${data.followers}` 
+                    newDiv.appendChild(followersText)
+
+                }
+            })
+
+
+        }
     };
 
-    
+
     xhr.send();
-  </script>
+</script>
+
 </html>
