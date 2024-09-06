@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body style="background-color: #212121">
+    <!-- 0 UNSENT Client has been created. open() not called yet. 1 OPENED open() has
+    been called. 2 HEADERS_RECEIVED send() has been called, and headers and
+    status are available. 3 LOADING Downloading; responseText holds partial
+    data. 4 DONE The operation is complete. -->
+  </body>
+  <script>
+    // Create a new Button element
+    const newDiv = document.createElement("div");
+    newDiv.className = "info";
+    newDiv.textContent = "Info of Hitesh Choudhary";
+    newDiv.style.color = "white";
+
+    // Create a line Break (br) element
+    const lineBreak = document.createElement("br");
+
+    // Create a new Button element
+    const newButton = document.createElement("button");
+    newButton.textContent = "For Info:";
+
+    newButton.id = 'myButton'
+
+
+    newDiv.appendChild(lineBreak);
+    newDiv.appendChild(newButton);
+
+    document.body.appendChild(newDiv);
+
+
+    
+
+
+    
+    
+    
+    const requestUrl = "https://api.github.com/users/hiteshchoudhary";
+    const xhr = new XMLHttpRequest();
+    xhr.open("GET", requestUrl);
+    xhr.onreadystatechange = function () {
+      console.log(xhr.readyState);
+      if (xhr.readyState === 4) {
+        
+        const data = JSON.parse(this.responseText);
+        console.log(data)
+        console.log(typeof data)
+        const followersDelails = (data.followers)
+        console.log(followersDelails)    
+        // const avatar = (data.avatar_url)
+        // console.log(avatar)    
+
+    
+        // Add a Click event listener to the button
+        // newButton.addEventListener('click', followersDelails)
+    
+      }
+    };
+
+    
+    xhr.send();
+  </script>
+</html>
